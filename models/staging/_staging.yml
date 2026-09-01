@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: stg_members
+    description: "One line per member, adjusted and typed"
+    columns:
+      - name: member_id
+        tests: [unique, not_null]
+      - name: signup_date
+        tests: [not_null]
+      - name: acquisition_channel
+        description: "Normalized values"
+        tests:
+          - accepted_values:
+              values: ["web", "walk_in", "referral", "campaign", "app"]
+      - name: home_studio_id
+        tests:
+          - relationships:
+              to: ref('stg_studios')
+              field: studio_id
+
+  - name: stg_studios
+    description: "Studio master data"
+    columns:
+      - name: studio_id
+        tests: [unique, not_null]
+      - name: brand
+        tests: [not_null]
+
+  - name: stg_contracts
+    description: "One line per contract period. end_date is NULL if contract still active."
+    columns:
+      - name: contract_id
+        tests: [unique, not_null]
+      - name: member_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_members')
+              field: member_id
+      - name: plan
+        tests:
+          - accepted_values:
+              values: ["basic", "plus", "premium"]
+      - name: start_date
+        tests: [not_null]
+
+  - name: stg_checkins
+    description: "One line per checkin, removed duplicates"
+    columns:
+      - name: checkin_id
+        tests: [unique, not_null]
+      - name: checkin_ts
+        tests: [not_null]
