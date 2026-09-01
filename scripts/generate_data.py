@@ -1,8 +1,7 @@
 """
-Erzeugung von fiktiven Mitgliederdaten, output als CSV.
+Generation of synthetic member data, output as CSV.
 
-Fixer seed zur Reproduzierbarkeit
-"""
+Fixed seed for reproducibility"""
 
 import csv
 import random
