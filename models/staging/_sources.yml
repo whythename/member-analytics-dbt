@@ -1,0 +1,21 @@
+version: 2
+
+sources:
+  - name: membership
+    description: "Member management"
+    schema: raw_membership
+    tables:
+      - name: members
+      - name: contracts
+
+  - name: access
+    description: "Studio access system"
+    schema: raw_access
+    tables:
+      - name: checkins
+
+  - name: masterdata
+    description: "Location master data"
+    schema: raw_masterdata
+    tables:
+      - name: studios

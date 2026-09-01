@@ -1,0 +1,19 @@
+# Liegt bewusst im Repo: DuckDB braucht keine Credentials, damit laeuft das
+# Projekt bei jedem sofort nach dem Klonen. Bei einem Cloud-DWH stuenden hier
+# Verweise auf Umgebungsvariablen, niemals das Passwort selbst.
+#
+# dev und ci schreiben in getrennte Schemata, damit ein CI-Lauf niemals die
+# Tabellen ueberschreibt, mit denen gerade jemand arbeitet.
+member_analytics:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: member_analytics.duckdb
+      schema: dev
+      threads: 4
+    ci:
+      type: duckdb
+      path: member_analytics.duckdb
+      schema: ci
+      threads: 4
