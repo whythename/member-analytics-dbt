@@ -1,1 +1,1 @@
-dummy
+![dbt CI](https://github.com/whythename/member-analytics-dbt/actions/workflows/dbt-ci.yml/badge.svg)
