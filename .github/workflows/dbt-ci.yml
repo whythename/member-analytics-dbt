@@ -1,0 +1,40 @@
+name: dbt CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      DBT_PROFILES_DIR: .
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate source data
+        run: python scripts/generate_data.py
+
+      - name: Load raw layer
+        run: python scripts/load_raw.py
+
+      - name: dbt build
+        run: dbt build --target ci
+
+      - name: Generate docs
+        run: dbt docs generate --target ci
+
+      - name: Upload docs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-docs
+          path: target/
