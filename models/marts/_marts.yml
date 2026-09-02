@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: mart_active_members_monthly
+    description: >
+      active members and recurring revenue per month, brand and plan.
+      active = valid contract on eom.
+    columns:
+      - name: month_start
+        tests: [not_null]
+      - name: active_members
+        tests: [not_null]
+
+  - name: mart_churn_by_cohort
+    description: >
+      termination rates by intake cohort after 3, 6 and 12 months.
+      only cohorts with is_mature_* = true are relevant for the respective window.
+    columns:
+      - name: cohort_month
+        tests: [unique, not_null]
+      - name: cohort_size
+        tests: [not_null]
