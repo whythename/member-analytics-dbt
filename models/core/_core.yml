@@ -28,7 +28,8 @@ models:
       - name: plan
         tests:
           - accepted_values:
-              values: ["basic", "plus", "premium"]
+              arguments:
+                values: ["basic", "plus", "premium"]
 
   - name: fct_checkin
     description: "fact table, grain: studio visit"

@@ -12,12 +12,14 @@ models:
         description: "Normalized values"
         tests:
           - accepted_values:
-              values: ["web", "walk_in", "referral", "campaign", "app"]
+              arguments:
+                values: ["web", "walk_in", "referral", "campaign", "app"]
       - name: home_studio_id
         tests:
           - relationships:
-              to: ref('stg_studios')
-              field: studio_id
+              arguments:
+                to: ref('stg_studios')
+                field: studio_id
 
   - name: stg_studios
     description: "Studio master data"
@@ -36,12 +38,14 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_members')
-              field: member_id
+              arguments:
+                to: ref('stg_members')
+                field: member_id
       - name: plan
         tests:
           - accepted_values:
-              values: ["basic", "plus", "premium"]
+              arguments:
+                values: ["basic", "plus", "premium"]
       - name: start_date
         tests: [not_null]
 
